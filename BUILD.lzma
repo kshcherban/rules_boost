@@ -18,6 +18,14 @@ config_setting(
 )
 
 config_setting(
+    name = "ios_arm64",
+    constraint_values = [
+        "@bazel_tools//platforms:ios",
+        "@bazel_tools//platforms:aarch64",
+    ],
+)
+
+config_setting(
     name = "osx_x86_64",
     constraint_values = [
         "@bazel_tools//platforms:osx",
@@ -38,6 +46,7 @@ config_setting(
 copy_file(
     name = "copy_config",
     src = select({
+        ":ios_arm64": "@com_github_nelhage_rules_boost//:config.lzma-osx-arm64.h",
         ":android": "@com_github_nelhage_rules_boost//:config.lzma-linux.h",
         ":linux": "@com_github_nelhage_rules_boost//:config.lzma-linux.h",
         ":osx_arm64": "@com_github_nelhage_rules_boost//:config.lzma-osx-arm64.h",
