@@ -34,6 +34,14 @@ config_setting(
 )
 
 config_setting(
+    name = "ios",
+    constraint_values = [
+        "@bazel_tools//platforms:ios",
+    ],
+    visibility = ["//visibility:public"],
+)
+
+config_setting(
     name = "windows",
     constraint_values = [
         "@bazel_tools//platforms:windows",
@@ -1926,7 +1934,7 @@ boost_library(
             "libs/thread/src/pthread/once.cpp",
             "libs/thread/src/pthread/thread.cpp",
         ],
-        ":osx": [
+        (":osx", ":ios"): [
             "libs/thread/src/pthread/once.cpp",
             "libs/thread/src/pthread/thread.cpp",
         ],
@@ -1940,7 +1948,7 @@ boost_library(
         (":linux", ":android"): [
             "libs/thread/src/pthread/once_atomic.cpp",
         ],
-        ":osx": [
+        (":osx", ":ios"): [
             "libs/thread/src/pthread/once_atomic.cpp",
         ],
         ":windows_x86_64": [],
